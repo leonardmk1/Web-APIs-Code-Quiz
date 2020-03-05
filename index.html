@@ -26,17 +26,17 @@
        
         
         <div class="btn-group-vertical">
-        <a class="btn btn-dark btn-lg mb-2" href="#" role="button" onclick="nextQuestion()" id="a">A</a>
-        <a class="btn btn-dark btn-lg mb-2" href="#" role="button" onclick="nextQuestion()" id="b">B</a>
-        <a class="btn btn-dark btn-lg mb-2" href="#" role="button" onclick="nextQuestion()" id="c">C</a>
-        <a class="btn btn-dark btn-lg" href="#" role="button" onclick="nextQuestion()" id="d">D</a>
+        <a class="btn btn-dark btn-lg mb-2" href="#" role="button" onclick="nextQuestion(this.id)" id="a">A</a>
+        <a class="btn btn-dark btn-lg mb-2" href="#" role="button" onclick="nextQuestion(this.id)" id="b">B</a>
+        <a class="btn btn-dark btn-lg mb-2" href="#" role="button" onclick="nextQuestion(this.id)" id="c">C</a>
+        <a class="btn btn-dark btn-lg" href="#" role="button" onclick="nextQuestion(this.id)" id="d">D</a>
         </div>
       </div>
 
 
       <div class="jumbotron bg-warning text-center d-none" id="score-screen">
         <h1 class="display-4">Finished</h1>
-        <p class="lead">This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information.</p>
+        <p class="lead" id="score">This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information.</p>
         <hr class="my-4">
         <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
         <a class="btn btn-dark btn-lg" href="#" role="button" onclick="retakeQuiz()">Retake Quiz</a>

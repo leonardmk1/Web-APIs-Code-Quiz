@@ -1,3 +1,4 @@
+var score = 0;
 var counter = 0;
 var questions = [
   {
@@ -41,14 +42,17 @@ var questions = [
     correct: "b"
   }
 ];
-
+// starting the quiz by removing the display of the questions and adding display none to the start screen 
 function startQuiz() {
   document.getElementById("start-screen").classList.add("d-none");
   document.getElementById("questions").classList.remove("d-none");
   nextQuestion();
   
 }
-function nextQuestion() {
+function nextQuestion(userAnswer) {
+  if (counter > 0 && userAnswer === questions[counter - 1].correct) {
+    score = score + 20;
+  }
   if (counter === 5) {
       return getScore();
   }
@@ -63,10 +67,17 @@ function nextQuestion() {
 function getScore(){
     document.getElementById("questions").classList.add("d-none");
     document.getElementById("score-screen").classList.remove("d-none");
+    $("#score").text(`Your Score: ${score}`)
 }
 function retakeQuiz() {
   document.getElementById("score-screen").classList.add("d-none");
-  document.getElementById("start-screen").classList.remove("d-none")
+  document.getElementById("questions").classList.remove("d-none");
+  counter = 0;
+  nextQuestion();
+}
+function viewHighScore() {
+  document.getElementById("score-screen").classList.add("d-none");
+  document.getElementById("high-scores").classList.remove("d-none");
 }
 
 

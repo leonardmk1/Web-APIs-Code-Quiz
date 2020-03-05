@@ -1,3 +1,6 @@
 .jumbotron{
     min-height: 100vh;
 }
+.btn-dark:hover {
+    color: #ffc107;
+}
