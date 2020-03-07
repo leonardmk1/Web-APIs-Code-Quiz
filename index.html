@@ -1,59 +1,139 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
   <head>
     <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
 
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-    <link rel="stylesheet" href="style.css">
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+      integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="style.css" />
     <title>Web APIs: Code Quiz</title>
   </head>
   <body>
     <div class="jumbotron bg-warning text-center" id="start-screen">
-        <h1 class="display-4">Javascript Quiz</h1>
-        <p class="lead">Test you knowledge and keep track of your high score with this javascript quiz!</p>
-        <hr class="my-4">
-        <p>For each question, click on the button that corresponds to the correct answer.</p>
-        <a class="btn btn-dark btn-lg" href="#" role="button" onclick="startQuiz()">Start Quiz</a>
+      <h1 class="display-4">Javascript Quiz</h1>
+      <p class="lead">
+        Test you knowledge and keep track of your high score with this
+        javascript quiz!
+      </p>
+      <hr class="my-4" />
+      <p>
+        For each question, click on the button that corresponds to the correct
+        answer.
+      </p>
+      <a
+        class="btn btn-dark btn-lg"
+        href="#"
+        role="button"
+        onclick="startQuiz()"
+        >Start Quiz</a
+      >
+    </div>
+
+    <div class="jumbotron bg-warning text-center d-none" id="questions">
+      <h1 class="display-4">Question <span id="qnum"></span></h1>
+
+      <div class="container text-right font-weight-bold">
+        Time Left:
+        <span id="timeLeft">30</span>
       </div>
-      
-      <div class="jumbotron bg-warning text-center d-none" id="questions">
-        <h1 class="display-4">Question <span id="qnum"></span></h1>
-      
-        <!--<div class="container text-right font-weight-bold">Time Left: 
-          <span id="timeLeft">30</span>
-        </div>-->
-        
-        <p class="lead" id="question">This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information.</p>
-        <hr class="my-4">
-        <div class="btn-group-vertical">
-        <a class="btn btn-dark btn-lg mb-2" href="#" role="button" onclick="nextQuestion(this.id)" id="a">A</a>
-        <a class="btn btn-dark btn-lg mb-2" href="#" role="button" onclick="nextQuestion(this.id)" id="b">B</a>
-        <a class="btn btn-dark btn-lg mb-2" href="#" role="button" onclick="nextQuestion(this.id)" id="c">C</a>
-        <a class="btn btn-dark btn-lg" href="#" role="button" onclick="nextQuestion(this.id)" id="d">D</a>
-        </div>
+
+      <p class="lead" id="question">
+        This is a simple hero unit, a simple jumbotron-style component for
+        calling extra attention to featured content or information.
+      </p>
+      <hr class="my-4" />
+      <div class="btn-group-vertical">
+        <a
+          class="btn btn-dark btn-lg mb-2"
+          href="#"
+          role="button"
+          onclick="nextQuestion(this.id)"
+          id="a"
+          >A</a
+        >
+        <a
+          class="btn btn-dark btn-lg mb-2"
+          href="#"
+          role="button"
+          onclick="nextQuestion(this.id)"
+          id="b"
+          >B</a
+        >
+        <a
+          class="btn btn-dark btn-lg mb-2"
+          href="#"
+          role="button"
+          onclick="nextQuestion(this.id)"
+          id="c"
+          >C</a
+        >
+        <a
+          class="btn btn-dark btn-lg"
+          href="#"
+          role="button"
+          onclick="nextQuestion(this.id)"
+          id="d"
+          >D</a
+        >
       </div>
-      <div class="jumbotron bg-warning text-center d-none" id="score-screen">
-        <h1 class="display-4">Finished</h1>
-        <p class="lead" id="score"></p>
-        <input type="text" placeholder="Name" id="userName">
-        <a class="btn btn-dark btn-sm" href="#" role="button" onclick="saveScore()">Save Score</a>
-        <hr class="my-4">
-        <p>Great work! You are on your way to learning Javascript!</p>
-        <a class="btn btn-dark btn-lg" href="#" role="button" onclick="retakeQuiz()">Retake Quiz</a>
-        <a class="btn btn-dark btn-lg" href="#" role="button" onclick="viewHighScore()">View High Score</a>
-      </div>
-      <div class="jumbotron bg-warning text-center d-none" id="high-scores">
-        <h1 class="display-4">High Scores</h1>
-        <hr class="my-4">
-        <p class="lead text-center" id="high-score-list">100</p>
-        <a class="btn btn-dark btn-lg" href="#" role="button" onclick="home()">Home</a>
-      </div>
-    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
-  <script src="script.js"></script>
-</body>
+      <div id="correct" class="d-none">Correct!</div>
+      <div id="incorrect" class="d-none">Incorrect!</div>
+    </div>
+    <div class="jumbotron bg-warning text-center d-none" id="score-screen">
+      <h1 class="display-4">Finished</h1>
+      <p class="lead" id="score"></p>
+      <input type="text" placeholder="Name" id="userName" />
+      <a
+        class="btn btn-dark btn-sm"
+        href="#"
+        role="button"
+        id="btnSaveScore"
+        onclick="saveScore()"
+        >Save Score</a
+      >
+      <hr class="my-4" />
+      <p>Great work! You are on your way to learning Javascript!</p>
+      <a
+        class="btn btn-dark btn-lg"
+        href="#"
+        role="button"
+        onclick="retakeQuiz()"
+        >Retake Quiz</a
+      >
+    </div>
+    <div class="jumbotron bg-warning text-center d-none" id="high-scores">
+      <h1 class="display-4">High Scores</h1>
+      <hr class="my-4" />
+      <p class="lead text-center" id="high-score-list"></p>
+      <a class="btn btn-dark btn-lg" href="#" role="button" onclick="home()"
+        >Home</a
+      >
+    </div>
+    <script
+      src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+      integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+      integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+      integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+      crossorigin="anonymous"
+    ></script>
+    <script src="script.js"></script>
+  </body>
 </html>

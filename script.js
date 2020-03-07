@@ -1,5 +1,13 @@
-var score = 0;
+var timeLeft = 80;
 var counter = 0;
+var score = 0;
+var jsHighScores = JSON.parse(localStorage.getItem("jsHighScores"));
+if (jsHighScores === null) {
+  localStorage.setItem("jsHighScores", "[]");
+
+  
+}
+
 
 var questions = [
   {
@@ -51,7 +59,17 @@ function startQuiz() {
 }
 function nextQuestion(userAnswer) {
   if (counter > 0 && userAnswer === questions[counter - 1].correct) {
-    score = score + 20;
+    $("#correct").removeClass("d-none");
+    setTimeout(function(){
+      $("#correct").addClass("d-none");
+    }, 1500);
+  }
+  if (counter > 0 && userAnswer !== questions[counter - 1].correct) {
+    $("#incorrect").removeClass("d-none");
+    setTimeout(function(){
+      $("#incorrect").addClass("d-none");
+    }, 1500);
+    timeLeft= timeLeft - 10;
   }
   if (counter === 5) {
     return getScore();
@@ -65,6 +83,7 @@ function nextQuestion(userAnswer) {
   document.getElementById("qnum").textContent = counter;
 }
 function getScore() {
+  score = timeLeft;
   document.getElementById("questions").classList.add("d-none");
   document.getElementById("score-screen").classList.remove("d-none");
   $("#score").text(`Your Score: ${score}`);
@@ -78,64 +97,58 @@ function retakeQuiz() {
 function viewHighScore() {
   document.getElementById("score-screen").classList.add("d-none");
   document.getElementById("high-scores").classList.remove("d-none");
-  $("#high-score-list").text(`${score}`);
+  var highscores = JSON.parse(localStorage.getItem("jsHighScores"));
+  for (let i = 0; i < highscores.length; i++) {
+    $("#high-score-list").append(highscores[i].username);
+    $("#high-score-list").append(` ${highscores[i].score}`);
+    $("#high-score-list").append("<br>");
+
+    
+  }
 }
 function home() {
   document.getElementById("high-scores").classList.add("d-none");
   document.getElementById("start-screen").classList.remove("d-none");
 }
-// employees.sort(function(a, b){
-//   return a.age-b.age
-// })
-function saveScore() {
-  var list = JSON.parse(localStorage.getItem("score"));
-  if (!Array.isArray(list)) {
-    list = [];
-  }
-  function putOnPage() {
-    $("#high-score-list").empty(); // empties out the html
-    var insideList = JSON.parse(localStorage.getItem("#high-score-list"));
+const username = document.getElementById("userName");
+const btnSaveScore = document.getElementById("btnSaveScore")
 
-    if (!Array.isArray(insideList)) {
-      insideList = [];
-    }
-
-    for (var i = 0; i < insideList.length; i++) {
-      var p = $("<p>").text(insideList[i]);
-      var b = $("<button class='delete'>")
-        .text("x")
-        .attr("data-index", i);
-
-      p.prepend(b);
-
-      $("#high-score-list").prepend(p);
-    }
-  }
-
-  putOnPage();
-
-  $(document).on("click", "button.delete", function() {
-    var scoreList = JSON.parse(localStorage.getItem("scoreList"));
-    var currentIndex = $(this).attr("data-index");
-
-    scoreList.splice(currentIndex, 1);
-    list = scoreList;
-    console.log("list" + list);
-
-    localStorage.setItem("scoreList", JSON.stringify(scoreList));
-
-    putOnPage();
+btnSaveScore.onclick = function() {
+  const username = userName.value;
+  const scores = JSON.parse(localStorage.getItem("jsHighScores"));
+  if (scores.length < 5) {
+    scores.push({ 
+      username: username,
+      score: score
+    });
+   scores.sort(function(a, b){
+      return b.score - a.score
+    })
+    localStorage.setItem("jsHighScores", JSON.stringify(scores)); 
+  } else if (score >= scores[4].score) {
+    scores[4]= { 
+      username: username,
+      score: score
+    };
+    scores.sort(function(a, b){
+      return b.score - a.score
   });
+  localStorage.setItem("jsHighScores", JSON.stringify(scores));
+  viewHighScore();
+}};
 
-  $("input[type='submit']").on("click", function(event) {
-    event.preventDefault();
 
-    var val = $("input[type='text']").val();
-    $("input[type='text']").val("");
+  var element = document.getElementById("timeLeft");
 
-    list.push(val);
-    localStorage.setItem("todolist", JSON.stringify(list));
-
-    putOnPage();
-  });
-}
+  function countdown() {
+   
+    if (timeLeft == 0) {
+      clearTimeout(timerId);
+      // doSomething();
+    } else {
+      element.innerHTML = timeLeft;
+      timeLeft--;
+    }
+  
+  }
+  var timerId = setInterval(countdown, 1000)
