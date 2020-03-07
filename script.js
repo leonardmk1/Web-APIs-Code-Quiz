@@ -43,19 +43,18 @@ var questions = [
     correct: "b"
   }
 ];
-// starting the quiz by removing the display of the questions and adding display none to the start screen 
+// starting the quiz by removing the display of the questions and adding display none to the start screen
 function startQuiz() {
   document.getElementById("start-screen").classList.add("d-none");
   document.getElementById("questions").classList.remove("d-none");
   nextQuestion();
-  
 }
 function nextQuestion(userAnswer) {
   if (counter > 0 && userAnswer === questions[counter - 1].correct) {
     score = score + 20;
   }
   if (counter === 5) {
-      return getScore();
+    return getScore();
   }
   document.getElementById("question").textContent = questions[counter].question;
   document.getElementById("a").textContent = questions[counter].a;
@@ -65,10 +64,10 @@ function nextQuestion(userAnswer) {
   counter++;
   document.getElementById("qnum").textContent = counter;
 }
-function getScore(){
-    document.getElementById("questions").classList.add("d-none");
-    document.getElementById("score-screen").classList.remove("d-none");
-    $("#score").text(`Your Score: ${score}`)
+function getScore() {
+  document.getElementById("questions").classList.add("d-none");
+  document.getElementById("score-screen").classList.remove("d-none");
+  $("#score").text(`Your Score: ${score}`);
 }
 function retakeQuiz() {
   document.getElementById("score-screen").classList.add("d-none");
@@ -79,33 +78,64 @@ function retakeQuiz() {
 function viewHighScore() {
   document.getElementById("score-screen").classList.add("d-none");
   document.getElementById("high-scores").classList.remove("d-none");
-  $("#high-score-list").text(`${score}`)
+  $("#high-score-list").text(`${score}`);
+}
+function home() {
+  document.getElementById("high-scores").classList.add("d-none");
+  document.getElementById("start-screen").classList.remove("d-none");
 }
 // employees.sort(function(a, b){
 //   return a.age-b.age
 // })
-var userName = document.getElementById("userName");
-
-var mostRecentScore = localStorage.getItem("mostRecentScore");
-var localStorageName = "username";
-var highScores = JSON.parse(localStorage.getItem("highScores")) || [];
-var MAX_HIGH_SCORES = 5;
-
 function saveScore() {
-  event.preventDefault;
-  $("#userName").val();
-  var score = {
-    score: score.value,
-    name: userName.value
-  };
-  console.log(score);
-  
-  
-  // highScore = Math.max(score, highScore);
-  // localStorage.setItem(localStorageName, highScore);
+  var list = JSON.parse(localStorage.getItem("score"));
+  if (!Array.isArray(list)) {
+    list = [];
+  }
+  function putOnPage() {
+    $("#high-score-list").empty(); // empties out the html
+    var insideList = JSON.parse(localStorage.getItem("#high-score-list"));
 
+    if (!Array.isArray(insideList)) {
+      insideList = [];
+    }
+
+    for (var i = 0; i < insideList.length; i++) {
+      var p = $("<p>").text(insideList[i]);
+      var b = $("<button class='delete'>")
+        .text("x")
+        .attr("data-index", i);
+
+      p.prepend(b);
+
+      $("#high-score-list").prepend(p);
+    }
+  }
+
+  putOnPage();
+
+  $(document).on("click", "button.delete", function() {
+    var scoreList = JSON.parse(localStorage.getItem("scoreList"));
+    var currentIndex = $(this).attr("data-index");
+
+    scoreList.splice(currentIndex, 1);
+    list = scoreList;
+    console.log("list" + list);
+
+    localStorage.setItem("scoreList", JSON.stringify(scoreList));
+
+    putOnPage();
+  });
+
+  $("input[type='submit']").on("click", function(event) {
+    event.preventDefault();
+
+    var val = $("input[type='text']").val();
+    $("input[type='text']").val("");
+
+    list.push(val);
+    localStorage.setItem("todolist", JSON.stringify(list));
+
+    putOnPage();
+  });
 }
-
-
-
-
