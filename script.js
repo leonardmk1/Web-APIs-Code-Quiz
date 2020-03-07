@@ -1,5 +1,6 @@
 var score = 0;
 var counter = 0;
+
 var questions = [
   {
     question: "What does js stand for?",
@@ -78,6 +79,33 @@ function retakeQuiz() {
 function viewHighScore() {
   document.getElementById("score-screen").classList.add("d-none");
   document.getElementById("high-scores").classList.remove("d-none");
+  $("#high-score-list").text(`${score}`)
 }
+// employees.sort(function(a, b){
+//   return a.age-b.age
+// })
+var userName = document.getElementById("userName");
+
+var mostRecentScore = localStorage.getItem("mostRecentScore");
+var localStorageName = "username";
+var highScores = JSON.parse(localStorage.getItem("highScores")) || [];
+var MAX_HIGH_SCORES = 5;
+
+function saveScore() {
+  event.preventDefault;
+  $("#userName").val();
+  var score = {
+    score: score.value,
+    name: userName.value
+  };
+  console.log(score);
+  
+  
+  // highScore = Math.max(score, highScore);
+  // localStorage.setItem(localStorageName, highScore);
+
+}
+
+
 
 
