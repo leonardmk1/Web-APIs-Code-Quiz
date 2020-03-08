@@ -5,3 +5,9 @@
 .btn-dark:hover {
     color: #ffc107;
 }
+.input{
+    padding: 2px;
+}
+.div{
+    padding-top: 20px;
+}

@@ -20,10 +20,9 @@
   </head>
   <body>
     <div class="jumbotron bg-warning text-center" id="start-screen">
-      <h1 class="display-4">Javascript Quiz</h1>
+      <h1 class="display-4">Javascript Code Quiz</h1>
       <p class="lead">
-        Test you knowledge and keep track of your high score with this
-        javascript quiz!
+        Test your knowledge with this javascript quiz! See if you can make the High Score List!
       </p>
       <hr class="my-4" />
       <p>
@@ -86,20 +85,20 @@
           >D</a
         >
       </div>
-      <div id="correct" class="d-none">Correct!</div>
-      <div id="incorrect" class="d-none">Incorrect!</div>
+      <div id="correct" class="div d-none text-success text-uppercase font-weight-bold font-italic">Correct!</div>
+      <div id="incorrect" class="div d-none text-danger text-uppercase font-weight-bold font-italic">Incorrect!</div>
     </div>
     <div class="jumbotron bg-warning text-center d-none" id="score-screen">
-      <h1 class="display-4">Finished</h1>
-      <p class="lead" id="score"></p>
-      <input type="text" placeholder="Name" id="userName" />
-      <a
-        class="btn btn-dark btn-sm"
+      <h1 class="display-4 font-weight-bold">Finished!</h1>
+      <p class="lead font-weight-bold" id="score"></p>
+      <input type="text" placeholder="Name" id="userName"></span> 
+      <span
+        class="btn btn-dark btn-md"
         href="#"
         role="button"
         id="btnSaveScore"
         onclick="saveScore()"
-        >Save Score</a
+        >Save Score</span
       >
       <hr class="my-4" />
       <p>Great work! You are on your way to learning Javascript!</p>
@@ -110,6 +109,20 @@
         onclick="retakeQuiz()"
         >Retake Quiz</a
       >
+      <a
+      class="btn btn-dark btn-lg"
+      href="#"
+      role="button"
+      onclick="home()"
+      >Home Page</a
+    >
+    <a
+      class="btn btn-dark btn-lg"
+      href="#"
+      role="button"
+      onclick="viewHighScore()"
+      >High Scores</a
+    >
     </div>
     <div class="jumbotron bg-warning text-center d-none" id="high-scores">
       <h1 class="display-4">High Scores</h1>
