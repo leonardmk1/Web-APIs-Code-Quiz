@@ -17,3 +17,6 @@ The user arrives at the landing page and is presented with a call-to-action to "
 ![HighScores-Page](/Users/carolynleonard/Desktop/Bootcamp/Homework/Web-APIs-Code-Quiz/High Score.png)
 
 ## Links
+
+https://github.com/leonardmk1/Web-APIs-Code-Quiz
+https://leonardmk1.github.io/Web-APIs-Code-Quiz/
